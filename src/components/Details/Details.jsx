@@ -105,6 +105,7 @@ export default function Details() {
       toast.error("Error Adding products to your cart");
     }
   }
+
   function getProductDetails(id) {
     setLoading(true);
     axios
@@ -199,13 +200,12 @@ export default function Details() {
                       {"  "}Add To Cart
                     </button>
                     <p
-                      onClick={() => addProductToFavList(p.id)}
+                      onClick={() => addProductToFavList(productDetails.id)}
                       className={`${
-                        favProducts && favProducts.length
-                          ? favProducts.filter((favProd) => favProd.id === p.id)
-                              .length
-                            ? "text-red-500"
-                            : ""
+                        favProducts.some(
+                          (favProd) => favProd.id === productDetails.id
+                        )
+                          ? "text-red-500"
                           : ""
                       } px-[6px] py-[2px] rounded-[5px] cursor-pointer text-[28px]`}
                     >
