@@ -1,0 +1,56 @@
+.slick-slide {
+  padding: 0 0px;
+}
+
+.slick-dots {
+  margin: -20px 0;
+}
+/* .slick-dots {
+    bottom: -10px;
+  } */
+
+.slick-dots li {
+  color: #fff;
+  font-size: 14px;
+  margin: 5px;
+  padding: 4px 7px;
+  background: #d6d6d6;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+  width: 16px !important;
+  height: 8px !important;
+}
+.slick-dots li:hover {
+  background: #869791;
+}
+.slick-dots li.slick-active {
+  background-color: #869791 !important;
+  /* width: 22px !important;
+    height: 11px !important;
+    border-radius: 40%; */
+}
+/* .slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 11px !important;
+  height: 11px !important;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer;
+
+  font-size: 0;
+  border: 0;
+  outline: none;
+  background-color: rgb(233, 233, 233);
+  border-radius: 50%;
+}
+.slick-dots li.slick-active {
+  background-color: rgb(24, 100, 117) !important;
+  width: 22px !important;
+  height: 11px !important;
+  border-radius: 40%;
+}*/
+.slick-dots li button::before {
+  content: "" !important;
+}
