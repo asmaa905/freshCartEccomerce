@@ -30,7 +30,7 @@ export default function Payment() {
       )
       .then((res) => {
         setCashBtnLoading(false);
-        navigate("/allOrders");
+        navigate("/allorders");
       })
       .catch((error) => {
         setCashBtnLoading(false);

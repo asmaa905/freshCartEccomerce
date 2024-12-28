@@ -122,7 +122,7 @@ const router = createBrowserRouter(
           ),
         },
         {
-          path: "allOrders",
+          path: "allorders",
           element: (
             <ProtectedRouting>
               <AllOrders />
