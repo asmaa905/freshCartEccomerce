@@ -60,10 +60,9 @@ export default function Login() {
         localStorage.setItem("userToken", data.token);
         const userDataDecoded = jwtDecode(data.token);
         localStorage.setItem("userId", userDataDecoded.id);
-        console.log("userId", localStorage.getItem("userId"));
 
-        setUserIdLogin(localStorage.getItem("userId"));
-        setUserLogin(localStorage.getItem("userToken"));
+        setUserIdLogin(userDataDecoded.id);
+        setUserLogin(data.token);
 
         setBtnLoading(false);
         navigate("/");
@@ -123,10 +122,9 @@ export default function Login() {
         localStorage.setItem("userToken", data.token);
         const userDataDecoded = jwtDecode(data.token);
         localStorage.setItem("userId", userDataDecoded.id);
-        console.log("userId", localStorage.getItem("userId"));
 
-        setUserIdLogin(localStorage.getItem("userId"));
-        setUserLogin(localStorage.getItem("userToken"));
+        setUserIdLogin(userDataDecoded.id);
+        setUserLogin(data.token);
 
         setBtnLoading(false);
         navigate("/");
