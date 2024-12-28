@@ -82,7 +82,8 @@ export default function Details() {
     ],
   };
   let { addToCart } = useContext(cartContext);
-  let { addToWishList, favProducts } = useContext(wishListContext);
+  let { addToWishList, favProducts, getFavProducts, deleteItem } =
+    useContext(wishListContext);
   async function addProductToCart(id) {
     let addSuccess = await addToCart(id);
     if (addSuccess) {
@@ -95,14 +96,27 @@ export default function Details() {
     }
   }
   async function addProductToFavList(id) {
-    let addSuccess = await addToWishList(id);
-    if (addSuccess) {
-      toast.success("It has been add successfully ❤", {
-        duration: 2000,
-        position: "top-right",
-      });
+    const isFavorite = favProducts.some((favProd) => favProd.id === id);
+    if (isFavorite) {
+      let removeSuccess = await deleteItem(id);
+      if (removeSuccess) {
+        toast.success("Removed from favorites ❤", {
+          duration: 2000,
+          position: "top-right",
+        });
+      } else {
+        toast.error("Error removing product from favorites");
+      }
     } else {
-      toast.error("Error Adding products to your cart");
+      let addSuccess = await addToWishList(id);
+      if (addSuccess) {
+        toast.success("Added to favorites ❤", {
+          duration: 2000,
+          position: "top-right",
+        });
+      } else {
+        toast.error("Error adding product to favorites");
+      }
     }
   }
 
@@ -140,6 +154,7 @@ export default function Details() {
   useEffect(() => {
     getProductDetails(id);
     getRelatedProducts(catName);
+    getFavProducts();
   }, [id, catName]);
   if (error) {
     return <p>error</p>;
@@ -259,12 +274,8 @@ export default function Details() {
                         <span
                           onClick={() => addProductToFavList(p.id)}
                           className={`${
-                            favProducts && favProducts.length
-                              ? favProducts.filter(
-                                  (favProd) => favProd.id == p.id
-                                ).length
-                                ? "text-red-500"
-                                : ""
+                            favProducts.some((favProd) => favProd.id === p.id)
+                              ? "text-red-500"
                               : ""
                           } absolute top-[20px] right-[15px] hidden group-hover:block border border-[#ccc] px-[6px] py-[2px] rounded-[5px] cursor-pointer`}
                         >

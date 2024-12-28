@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import { ClimbingBoxLoader } from "react-spinners";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { cartContext } from "../../Context/CartContext";
@@ -12,18 +12,39 @@ export default function Products() {
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useContext(cartContext);
-  const { addToWishList, favProducts } = useContext(wishListContext);
+  const { addToWishList, favProducts, getFavProducts, deleteItem } =
+    useContext(wishListContext);
 
-  function filterData(data) {
-    if (location.pathname.includes("category")) {
-      return data.filter((product) => product.category.name === name);
-    } else if (location.pathname.includes("brand")) {
-      return data.filter((product) => product.brand.name === name);
-    } else {
-      return data;
-    }
-  }
+  const filterData = useCallback(
+    (data) => {
+      if (location.pathname.includes("category")) {
+        return data.filter((product) => product.category.name === name);
+      } else if (location.pathname.includes("brand")) {
+        return data.filter((product) => product.brand.name === name);
+      } else {
+        return data;
+      }
+    },
+    [location.pathname, name]
+  );
 
+  const getRecent = async () => {
+    const response = await axios.get(
+      `https://ecommerce.routemisr.com/api/v1/products`
+    );
+    return response.data.data;
+  };
+
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["recentProducts", location.pathname, name],
+    queryFn: getRecent,
+    staleTime: 800000,
+    select: (data) => {
+      return filterData(data).filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    },
+  });
   async function addProductToCart(id) {
     let addSuccess = await addToCart(id);
     if (addSuccess) {
@@ -35,33 +56,33 @@ export default function Products() {
       toast.error("Error Adding products to your cart");
     }
   }
-
   async function addProductToFavList(id) {
-    let addSuccess = await addToWishList(id);
-    if (addSuccess) {
-      toast.success("It has been add successfully ❤", {
-        duration: 2000,
-        position: "top-right",
-      });
+    const isFavorite = favProducts.some((favProd) => favProd.id === id);
+    if (isFavorite) {
+      let removeSuccess = await deleteItem(id);
+      if (removeSuccess) {
+        toast.success("Removed from favorites ❤", {
+          duration: 2000,
+          position: "top-right",
+        });
+      } else {
+        toast.error("Error removing product from favorites");
+      }
     } else {
-      toast.error("Error Adding products to your cart");
+      let addSuccess = await addToWishList(id);
+      if (addSuccess) {
+        toast.success("Added to favorites ❤", {
+          duration: 2000,
+          position: "top-right",
+        });
+      } else {
+        toast.error("Error adding product to favorites");
+      }
     }
   }
-
-  function getRecent() {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-  }
-
-  const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["recentProducts"],
-    queryFn: getRecent,
-    staleTime: 800000,
-    select: (data) => {
-      return filterData(data.data.data).filter((product) =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    },
-  });
+  useEffect(() => {
+    getFavProducts();
+  }, [getFavProducts]);
 
   if (isLoading) {
     return (

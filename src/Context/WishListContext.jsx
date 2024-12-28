@@ -49,13 +49,14 @@ export default function WishListContextProvider(props) {
       .delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${id}`, {
         headers: { token },
       })
-      .then((res) => {
+      .then(async (res) => {
         setFavProducts(favProducts.filter((p) => p.id !== id));
 
+        await getFavProducts();
         return true;
       })
       .catch((error) => {
-        console.error("Add to cart error:", error);
+        console.error("Remove from favorites error:", error);
         return false;
       });
   }
