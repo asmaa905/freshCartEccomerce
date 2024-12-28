@@ -47,7 +47,7 @@ export default function Payment() {
         {
           headers: { token },
           params: {
-            url: "https://freshcarteccommerce.netlify.app/",
+            url: "https://freshcarteccommerce.netlify.app",
           },
         }
       )
