@@ -144,7 +144,7 @@ export default function Navbar() {
                         <li>
                           <Link
                             className="hover:bg-[#ccc] w-full px-[10px] py-[5px]"
-                            to="/allorders"
+                            to="/all"
                             onClick={() => {
                               toggleDropdown();
                             }}
