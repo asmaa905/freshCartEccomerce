@@ -37,6 +37,7 @@ export default function Payment() {
       });
   }
   function handleOnlinePayment(apiObj) {
+    const baseURL = window.location.origin;
     setOnlineBtnLoading(true);
     axios
       .post(
@@ -47,13 +48,12 @@ export default function Payment() {
         {
           headers: { token },
           params: {
-            url: "https://freshcarteccommerce.netlify.app",
+            url: `${baseURL}`,
           },
         }
       )
       .then((res) => {
         setOnlineBtnLoading(false);
-
         window.open(res.data.session.url, "_self");
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ export default function Payment() {
       `https://restfulcountries.com/api/v1/countries/Egypt/states`,
       {
         headers: {
-          Authorization: `Bearer ${bearerTokenOfState}`, // Add Bearer token
+          Authorization: `Bearer ${bearerTokenOfState}`,
         },
       }
     );

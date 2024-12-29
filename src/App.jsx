@@ -25,6 +25,7 @@ import Payment from "./components/Payment/Payment";
 import AllOrders from "./components/AllOrders/AllOrders";
 import WishList from "./components/wishList/wishList";
 import WishListContextProvider from "./Context/WishListContext";
+import NotFound from "./components/NotFound/NotFound";
 let query = new QueryClient();
 
 // Route configuration
@@ -128,6 +129,10 @@ const router = createBrowserRouter(
               <AllOrders />
             </ProtectedRouting>
           ),
+        },
+        {
+          path: "*",
+          element: <NotFound />,
         },
       ],
     },
