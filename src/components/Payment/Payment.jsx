@@ -157,6 +157,15 @@ export default function Payment() {
               resize: "none",
             }}
           />
+
+          {formik.errors.details && formik.touched.details ? (
+            <div
+              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              role="alert"
+            >
+              {formik.errors.details}
+            </div>
+          ) : null}
         </div>
         <div className="relative z-0 w-full mb-2  group">
           <label
@@ -175,6 +184,15 @@ export default function Payment() {
             onChange={formik.handleChange}
             value={formik.values.phone}
           />
+
+          {formik.errors.phone && formik.touched.phone ? (
+            <div
+              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              role="alert"
+            >
+              {formik.errors.phone}
+            </div>
+          ) : null}
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label
@@ -198,6 +216,15 @@ export default function Payment() {
               </option>
             ))}
           </select>
+
+          {formik.errors.city && formik.touched.city ? (
+            <div
+              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              role="alert"
+            >
+              {formik.errors.city}
+            </div>
+          ) : null}
         </div>
         <div className="flex justify-between">
           <button
