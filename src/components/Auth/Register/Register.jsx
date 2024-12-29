@@ -44,8 +44,7 @@ export default function Register() {
         localStorage.setItem("userToken", data.token);
         const userDataDecoded = jwtDecode(data.token);
         localStorage.setItem("userId", userDataDecoded.id);
-        console.log("userId", localStorage.getItem("userId"));
-
+        localStorage.setItem("userName", userDataDecoded.name);
         setUserIdLogin(localStorage.getItem("userId"));
         setUserLogin(localStorage.getItem("userToken"));
 
