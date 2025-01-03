@@ -210,7 +210,10 @@ export default function Details() {
                     </span>
                   </div>
                   <div className="flex justify-center items-center gap-[20%]">
-                    <button className="btn-add-cart mb-1 w-[75%] ">
+                    <button
+                      className="btn-add-cart mb-1 w-[75%] "
+                      onClick={() => addProductToCart(productDetails._id)}
+                    >
                       <i className="fa-solid fa-cart-plus me-1"> </i>
                       {"  "}Add To Cart
                     </button>
