@@ -18,7 +18,7 @@ export default function Products() {
   const filterData = useCallback(
     (data) => {
       if (location.pathname.includes("category")) {
-        return data.filter((product) => product.category.name === name);
+        return data.filter((product) => product.subcategory[0].name === name);
       } else if (location.pathname.includes("brand")) {
         return data.filter((product) => product.brand.name === name);
       } else {

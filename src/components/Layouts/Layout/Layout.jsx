@@ -23,6 +23,7 @@ function TitleUpdater() {
       "/categories": "Categories",
       "/productDetails": "Product Details",
       "/allorders": "All Orders",
+      "/subcategories": "subcategories",
     };
     const currentPath =
       location.pathname.split("/")[location.pathname.split("/").length - 1];

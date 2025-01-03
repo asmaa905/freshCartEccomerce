@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "./components/Home/Home";
-import Categories from "./components/Categories/Categories";
+import MainCategories from "./components/Categories/MainCategories/MainCategories";
 import Layout from "./components/Layouts/Layout/Layout";
 import Products from "./components/Products/Products";
 import Details from "./components/Details/Details";
@@ -26,6 +26,7 @@ import AllOrders from "./components/AllOrders/AllOrders";
 import WishList from "./components/wishList/wishList";
 import WishListContextProvider from "./Context/WishListContext";
 import NotFound from "./components/NotFound/NotFound";
+import SubCategories from "./components/Categories/SubCategories/SubCategories";
 let query = new QueryClient();
 
 // Route configuration
@@ -102,7 +103,15 @@ const router = createBrowserRouter(
           path: "categories",
           element: (
             <ProtectedRouting>
-              <Categories />
+              <MainCategories />
+            </ProtectedRouting>
+          ),
+        },
+        {
+          path: "/categories/:catId/:catName/subcategories",
+          element: (
+            <ProtectedRouting>
+              <SubCategories />
             </ProtectedRouting>
           ),
         },
