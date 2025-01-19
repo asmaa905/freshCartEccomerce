@@ -6,6 +6,8 @@ import { cartContext } from "../../Context/CartContext";
 import { wishListContext } from "../../Context/WishListContext";
 import "./Details.css";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
+
 export default function Details() {
   let { id, catName } = useParams();
   const [productDetails, setProductDetails] = useState(null);
@@ -169,6 +171,27 @@ export default function Details() {
         </div>
       ) : (
         <>
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: productDetails?.title,
+                image: productDetails?.imageCover,
+                description: productDetails?.description,
+                // sku: productDetails.sku,
+                brand: { "@type": "Brand", name: productDetails?.brand },
+                offers: {
+                  "@type": "Offer",
+                  url: `https://freshcarteccommerce.netlify.app/productDetails/${productDetails?.id}`,
+                  priceCurrency: "USD",
+                  price: productDetails?.price,
+                  itemCondition: "https://schema.org/NewCondition",
+                  availability: "https://schema.org/InStock",
+                },
+              })}
+            </script>
+          </Helmet>
           <div className="container py-[0.5rem] ">
             {productDetails && (
               <div className="product-details items-center grid grid-cols-[1fr_2fr] gap-3">

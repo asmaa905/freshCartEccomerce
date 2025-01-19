@@ -5,6 +5,7 @@ import { ClimbingBoxLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import catImg from "../../../assets/images/placeholder/category.png";
+import { Helmet } from "react-helmet-async";
 
 export default function subCategories() {
   let { catId, catName } = useParams();
@@ -46,6 +47,13 @@ export default function subCategories() {
   }
   return (
     <>
+      <Helmet>
+        <title>{`Fresh Cart | ${catName}`}</title>
+        <meta
+          name="description"
+          content={`Shop the best products in the ${catName} category.`}
+        />
+      </Helmet>
       <div className="container py-[0.5rem] mt-[50px]">
         <div className="headers">
           <h2 className="font-[700] text-[28px] leading-[34px] text-[#22db14] pb-[20px] pt-[40px]">

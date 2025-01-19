@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://freshcarteccommerce.netlify.app/sitemap.xml

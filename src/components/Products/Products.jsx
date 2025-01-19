@@ -6,6 +6,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { cartContext } from "../../Context/CartContext";
 import { wishListContext } from "../../Context/WishListContext";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 export default function Products() {
   const { name } = useParams();
@@ -101,90 +102,102 @@ export default function Products() {
   }
 
   return (
-    <div className="container py-[0.5rem] mt-[7rem]">
-      {location.pathname.includes("category") ||
-      location.pathname.includes("brand") ? (
-        <p
-          className="prod-count  mt-[25px] ml-auto text-[#5c6c75] text-[16px] leading-[24px] font-[500] "
-          style={{ fontFamily: '"Encode Sans Expanded" , sans - serif' }}
-        >
-          Products found:
-          <span className="text-[#22db14] font-bold pl-1 text-[16px]">
-            {data?.length}
-          </span>
-        </p>
-      ) : (
-        <>
-          <div className="search-input w-[75%] mx-auto pb-[50px]">
-            <input
-              type="text"
-              className="form-control text-[#21313c] focus:border focus:border-[#85d685] focus:shadow-[0_0_0_0.25rem_#0aad0a40] focus:text-[#21313c] focus:outline-none"
-              style={{
-                transition:
-                  "border-color .15s ease-in-out, box-shadow .15s ease-in-out",
-              }}
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </>
-      )}
+    <>
+      <Helmet>
+        <title>{`Fresh Cart | ${name ? name : "products"}`}</title>
+        <meta
+          name="description"
+          content={`Shop the best products in the  ${
+            !name ? "products" : `${name} sub category.`
+          } `}
+        />
+      </Helmet>
 
-      <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 gap-5 py-5">
-        {data.map((p) => (
-          <div
-            className="relative text-start hover:border hover:border-[#22db14] hover:shadow-[#919eab33_0px_2px_4px_-1px,_#919eab24_0px_4px_5px_0px,_#919eab1f_0px_1px_10px_0px] bg-white hover:rounded-md p-2 group overflow-hidden"
-            key={p.id}
+      <div className="container py-[0.5rem] mt-[7rem]">
+        {location.pathname.includes("category") ||
+        location.pathname.includes("brand") ? (
+          <p
+            className="prod-count  mt-[25px] ml-auto text-[#5c6c75] text-[16px] leading-[24px] font-[500] "
+            style={{ fontFamily: '"Encode Sans Expanded" , sans - serif' }}
           >
-            <Link to={`/productDetails/${p.id}/${p.category.name}`}>
-              <img src={p.imageCover} alt="" />
-              <h4 className="text-emerald-600">{p.category.name}</h4>
-              <h3>{p.title.split(" ").slice(0, 2).join(" ")}</h3>
-              <div className="rate-price flex justify-between">
-                {p.priceAfterDiscount ? (
-                  <div className="text-sm">
-                    <span className="line-through text-red-500">
-                      {p.price} EGP
-                    </span>
-                    <span className="o-price pl-2">
-                      {p.priceAfterDiscount} EGP
-                    </span>
-                  </div>
-                ) : (
-                  <span className="o-price">{p.price} EGP</span>
-                )}
-                <span className="rate">
-                  <i className="text-yellow-300 fa fa-star"></i>
-                  {p.ratingsAverage}
-                </span>
-              </div>
-              {p.priceAfterDiscount ? (
-                <span className="absolute top-0 rounded-b-md bg-red-500 text-white p-1">
-                  Sale
-                </span>
-              ) : null}
-            </Link>
-            <span
-              onClick={() => addProductToFavList(p.id)}
-              className={`${
-                favProducts?.some((favProd) => favProd.id === p.id)
-                  ? "text-red-500"
-                  : ""
-              } absolute top-[20px] right-[15px] hidden group-hover:block border border-[#ccc] px-[6px] py-[2px] rounded-[5px] cursor-pointer`}
-            >
-              <i className="fas fa-heart"></i>
+            Products found:
+            <span className="text-[#22db14] font-bold pl-1 text-[16px]">
+              {data?.length}
             </span>
-            <button
-              className="btn-add-cart my-1 mx-auto w-[75%] flex items-center justify-center group-hover:translate-y-[0%] translate-y-[200%]"
-              onClick={() => addProductToCart(p.id)}
+          </p>
+        ) : (
+          <>
+            <div className="search-input w-[75%] mx-auto pb-[50px]">
+              <input
+                type="text"
+                className="form-control text-[#21313c] focus:border focus:border-[#85d685] focus:shadow-[0_0_0_0.25rem_#0aad0a40] focus:text-[#21313c] focus:outline-none"
+                style={{
+                  transition:
+                    "border-color .15s ease-in-out, box-shadow .15s ease-in-out",
+                }}
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </>
+        )}
+
+        <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 gap-5 py-5">
+          {data.map((p) => (
+            <div
+              className="relative text-start hover:border hover:border-[#22db14] hover:shadow-[#919eab33_0px_2px_4px_-1px,_#919eab24_0px_4px_5px_0px,_#919eab1f_0px_1px_10px_0px] bg-white hover:rounded-md p-2 group overflow-hidden"
+              key={p.id}
             >
-              <i className="fas fa-plus text-[13px] leading-[24px] font-[400] pr-[5px]"></i>
-              Add
-            </button>
-          </div>
-        ))}
+              <Link to={`/productDetails/${p.id}/${p.category.name}`}>
+                <img src={p.imageCover} alt="" />
+                <h4 className="text-emerald-600">{p.category.name}</h4>
+                <h3>{p.title.split(" ").slice(0, 2).join(" ")}</h3>
+                <div className="rate-price flex justify-between">
+                  {p.priceAfterDiscount ? (
+                    <div className="text-sm">
+                      <span className="line-through text-red-500">
+                        {p.price} EGP
+                      </span>
+                      <span className="o-price pl-2">
+                        {p.priceAfterDiscount} EGP
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="o-price">{p.price} EGP</span>
+                  )}
+                  <span className="rate">
+                    <i className="text-yellow-300 fa fa-star"></i>
+                    {p.ratingsAverage}
+                  </span>
+                </div>
+                {p.priceAfterDiscount ? (
+                  <span className="absolute top-0 rounded-b-md bg-red-500 text-white p-1">
+                    Sale
+                  </span>
+                ) : null}
+              </Link>
+              <span
+                onClick={() => addProductToFavList(p.id)}
+                className={`${
+                  favProducts?.some((favProd) => favProd.id === p.id)
+                    ? "text-red-500"
+                    : ""
+                } absolute top-[20px] right-[15px] hidden group-hover:block border border-[#ccc] px-[6px] py-[2px] rounded-[5px] cursor-pointer`}
+              >
+                <i className="fas fa-heart"></i>
+              </span>
+              <button
+                className="btn-add-cart my-1 mx-auto w-[75%] flex items-center justify-center group-hover:translate-y-[0%] translate-y-[200%]"
+                onClick={() => addProductToCart(p.id)}
+              >
+                <i className="fas fa-plus text-[13px] leading-[24px] font-[400] pr-[5px]"></i>
+                Add
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
