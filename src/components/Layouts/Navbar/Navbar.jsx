@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="container py-[0.5rem]">
           <div className="content flex justify-between items-center  flex-wrap">
             <div className="logo  md:w-4/12  no-underline	">
-              <img src={Logo} alt="logo" />
+              <img src={Logo} alt="fresh cart" />
             </div>
             <div
               className={`${

@@ -198,7 +198,11 @@ export default function Details() {
                 <div className="overflow-hidden ">
                   <Slider {...settingsProduct} className="my-20 w-full pt-10">
                     {productDetails?.images.map((image) => (
-                      <img src={image} alt="" className="object-cover " />
+                      <img
+                        src={image}
+                        alt={productDetails?.title}
+                        className="object-cover "
+                      />
                     ))}
                   </Slider>
                 </div>
@@ -269,7 +273,7 @@ export default function Details() {
                         key={p.id}
                       >
                         <Link to={`/productDetails/${p.id}/${p.category.name}`}>
-                          <img className="" src={p.imageCover} alt="" />
+                          <img className="" src={p.imageCover} alt={p?.title} />
                           <h4 className="text-emerald-600">
                             {p.category.name}
                           </h4>

@@ -57,7 +57,7 @@ export default function Brands() {
                 <img
                   className="w-full h-[200px] object-cover p-3"
                   src={brand.image}
-                  alt=""
+                  alt={brand.name}
                 />
                 <h4 className="font-[400] text-[16px] leading-[24px] text-[#212529] text-center">
                   {brand.name}

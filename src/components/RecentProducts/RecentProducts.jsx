@@ -104,7 +104,7 @@ export default function RecentProducts() {
             key={p.id}
           >
             <Link to={`/productDetails/${p.id}/${p.category.name}`}>
-              <img src={p.imageCover} alt="" />
+              <img src={p.imageCover} alt={p?.title} />
               <h4 className="text-emerald-600">{p.category.name}</h4>
               <h3 className="">{p.title.split(" ").slice(0, 2).join(" ")}</h3>
               <div className="rate-price flex justify-between">

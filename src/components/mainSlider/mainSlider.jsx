@@ -22,29 +22,28 @@ export default function MainSlider() {
         <div className="flex flex-wrap mt-2 g-0 justify-center ">
           <div className="overflow-hidden md:w-3/12">
             <Slider {...settings} className="mb-10 w-full">
-              <img src={slide1} className="w-[234px]  object-cover" alt="" />
+              <img
+                src={slide1}
+                className="w-[234px]  object-cover"
+                alt="vegetables"
+              />
               <img
                 src={slide2}
                 className="w-[234px] h-[50%] object-cover"
-                alt=""
+                alt="bag"
               />
-              {/* <img
-                src={slide3}
-                className="w-[100%]  object-cover"
-                alt=""
-              /> */}
             </Slider>
           </div>
           <div className=" md:w-3/12 h-[100%]">
             <img
               src={grocery1}
               className="w-full h-[50%] object-cover"
-              alt=""
+              alt="bag"
             />
             <img
               src={grocery2}
               className="w-full h-[50%] object-cover"
-              alt=""
+              alt="music"
             />
           </div>
         </div>

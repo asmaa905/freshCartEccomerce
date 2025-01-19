@@ -102,7 +102,7 @@ export default function Payment() {
                         <img
                           className="w-[40px] block"
                           src={product?.product?.imageCover}
-                          alt=""
+                          alt={product?.product?.title}
                         />
                         <p className="name font-[600] text-[#0aad0a] text-[14px] leading-[21px]">
                           {product?.product?.title?.slice(0, 11)}

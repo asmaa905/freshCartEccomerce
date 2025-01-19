@@ -59,7 +59,7 @@ export default function SlickSlider() {
                   <img
                     className="w-full h-[270px] object-cover"
                     src={c.image}
-                    alt=""
+                    alt={c?.name}
                   />
                   <h3
                     className="text-[25px] leading-[34px] font-[500] text-[#212529]"

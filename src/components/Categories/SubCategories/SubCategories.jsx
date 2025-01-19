@@ -73,7 +73,7 @@ export default function subCategories() {
                 <img
                   className="w-full h-[200px] object-cover"
                   src={catImg}
-                  alt=""
+                  alt={cat.name}
                 />
                 <h4 className="font-[700] text-[20px] leading-[24px] text-[#5c6c75] text-center py-[1rem]">
                   {cat.name}
